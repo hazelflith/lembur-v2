@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React, { useState } from 'react';
+import CurrencyFormat from 'react-currency-format';
 
 export default function Home() {
 
@@ -185,16 +186,14 @@ const calculateLemburHariLibur = () => {
         <form>
           <div class="mb-4">
             <h6>Gaji Pokok :</h6>
-            <input
-              className='form-control no-arrow'
-              type="number"
-              value={gajiPokok}
-              placeholder= "Jumlah Gaji Pokok"
+            <CurrencyFormat value={gajiPokok} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2 form-control'
               onChange={(event)=>handlerTarif(event.target.value)}
+              placeholder= "Jumlah Gaji Pokok"
             />
           </div>
           <div class="d-flex align-items-center">
-            <h6>Total Lembur Anda : Rp.{totalLembur}</h6>
+            <h6>Total Lembur Anda :</h6>
+            <CurrencyFormat value={totalLembur} displayType={'text'} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2'/>
             <div className='btn btn-primary ms-auto' onClick={calculateTotalLembur}>Hitung</div>
           </div>
           <div class="d-flex">
