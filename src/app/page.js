@@ -154,6 +154,7 @@ const calculateLemburHariLibur = () => {
   };
   //Step 2
   useEffect(() => {
+    setLemburKerja(calculateLemburHariKerja())
     setLemburLibur(calculateLemburHariLibur())
     setTemp(temp+1)
   }, [lemburKerja,lemburLibur,gajiPokok])
