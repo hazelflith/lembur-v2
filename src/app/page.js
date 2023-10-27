@@ -242,9 +242,10 @@ const calculateLemburHariLibur = () => {
           }
           <hr></hr>
           <div className="row g-2">
+            <h5>Hari Kerja</h5>
             {inputFields.map((inputField, index) => (
               <div key={index} className="col-4 mb-4">
-                <h6>Hari kerja ke {index+1} :</h6>
+                <h6>Hari {index+1} :</h6>
                 <input
                   className='form-control'
                   type="number"
@@ -260,9 +261,10 @@ const calculateLemburHariLibur = () => {
           </div>
           <hr className='mb-4'></hr>
           <div className="row g-2">
+            {inputFieldsLibur.length > 0 && <h5>Hari Libur</h5>}
             {inputFieldsLibur.map((inputFieldLibur, index) => (
               <div key={index} className="col-4 mb-4">
-                <h6>Hari libur ke {index+1} :</h6>
+                <h6>Hari {index+1} :</h6>
                 <input
                   type="number"
                   className='form-control'
