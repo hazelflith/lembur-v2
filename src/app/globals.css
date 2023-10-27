@@ -88,10 +88,18 @@ a {
   top: 0;
 }
 .scroll{
-  padding-top: 335px;
+  padding-top: 340px;
 }
 
 .navbar{
   background: white;
   display: block;
+}
+.add-button{
+  background: rgb(177, 177, 177);
+  transition: .1s ease-in;
+  cursor: pointer;
+}
+.add-button:hover{
+  background: rgb(151, 151, 151);
 }

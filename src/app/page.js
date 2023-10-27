@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import CurrencyFormat from 'react-currency-format';
+import { AddOutline } from 'react-ionicons'
 
 export default function Home() {
 
@@ -214,7 +215,7 @@ const calculateLemburHariLibur = () => {
   return (
     <main>
       <div className="container mw-425 pb-5">
-          <div className="navbar fixed-top mw-425 mx-auto px-2">
+          <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
               <div className="py-3">
                 <h1>Lembur Calc 2.0</h1>
@@ -258,13 +259,19 @@ const calculateLemburHariLibur = () => {
                   />
                 </div>
               ))}
-            </div>
-            <div className="btn btn-primary mb-2" onClick={handleAddInput}>
-                Tambah Hari
+              <div class="col-4 mb-4 align-self-end">
+                <div class="add-button form-control text-center" onClick={handleAddInput}>
+                  <AddOutline
+                    color={'#6b6b6b'}
+                    height="24px"
+                    width="24px"
+                  />
+                </div>
+              </div>
             </div>
             <hr className='mb-4'></hr>
             <div className="row g-2">
-              {inputFieldsLibur.length > 0 && <h5>Hari Libur</h5>}
+              <h5>Hari Libur</h5>
               {inputFieldsLibur.map((inputFieldLibur, index) => (
                 <div key={index} className="col-4 mb-4">
                   <h6>Hari {index+1} :</h6>
@@ -277,9 +284,15 @@ const calculateLemburHariLibur = () => {
                   />
                 </div>
               ))}
-            </div>
-            <div className="btn btn-primary" onClick={handleAddInputLibur}>
-                Tambah Hari Libur
+              <div class="col-4 mb-4 align-self-end">
+                <div class="add-button form-control text-center" onClick={handleAddInputLibur}>
+                  <AddOutline
+                    color={'#6b6b6b'}
+                    height="24px"
+                    width="24px"
+                  />
+                </div>
+              </div>
             </div>
           </div>
       </div>
