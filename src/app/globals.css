@@ -65,7 +65,7 @@ a {
   text-decoration: none;
 }
 .mw-425{
-  max-width: 425px;
+  max-width: 425px !important;
 }
 
 .donasi{
@@ -96,10 +96,24 @@ a {
   display: block;
 }
 .add-button{
-  background: rgb(177, 177, 177);
+  background-color: rgb(217, 217, 217);
   transition: .1s ease-in;
   cursor: pointer;
 }
 .add-button:hover{
-  background: rgb(151, 151, 151);
+  background-color: rgb(198, 198, 198);
+  
+}
+ion-icon{
+  font-size: 24px;
+}
+
+.animate{
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes fadeIn{
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

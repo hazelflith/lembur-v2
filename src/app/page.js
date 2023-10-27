@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import CurrencyFormat from 'react-currency-format';
-import { AddOutline } from 'react-ionicons'
 
 export default function Home() {
 
@@ -17,8 +16,7 @@ export default function Home() {
 
   const [lemburLibur, setLemburLibur] = useState(0)
   const [lemburKerja, setLemburKerja] = useState(0)
-
-
+  
   const handlerTarif = (value) => {
     if(value){
       setGajiPokokShow(value);
@@ -243,29 +241,25 @@ const calculateLemburHariLibur = () => {
           </div>
           <div class="scroll">
             {view && 
-              <div className="qris"></div>
+              <div className="qris animate"></div>
             }
             <div className="row g-2">
-              <h5>Hari Kerja</h5>
+            <h5>Hari Kerja</h5>
               {inputFields.map((inputField, index) => (
-                <div key={index} className="col-4 mb-4">
-                  <h6>Hari {index+1} :</h6>
-                  <input
-                    className='form-control'
-                    type="number"
-                    placeholder={`Jam Lembur`}
-                    value={inputField.value}
-                    onChange={(event) => handleInputChange(index, event)}
-                  />
-                </div>
+                  <div key={index} className="col-4 mb-4 animate">
+                    <h6>Hari {index+1} :</h6>
+                    <input
+                      className='form-control'
+                      type="number"
+                      placeholder={`Jam Lembur`}
+                      value={inputField.value}
+                      onChange={(event) => handleInputChange(index, event)}
+                    />
+                  </div>
               ))}
               <div class="col-4 mb-4 align-self-end">
-                <div class="add-button form-control text-center" onClick={handleAddInput}>
-                  <AddOutline
-                    color={'#6b6b6b'}
-                    height="24px"
-                    width="24px"
-                  />
+                <div class="d-flex add-button form-control" onClick={handleAddInput}>
+                  <ion-icon name="add-outline" class="my-auto mx-auto"></ion-icon>
                 </div>
               </div>
             </div>
@@ -273,7 +267,7 @@ const calculateLemburHariLibur = () => {
             <div className="row g-2">
               <h5>Hari Libur</h5>
               {inputFieldsLibur.map((inputFieldLibur, index) => (
-                <div key={index} className="col-4 mb-4">
+                <div key={index} className="col-4 mb-4 animate">
                   <h6>Hari {index+1} :</h6>
                   <input
                     type="number"
@@ -285,12 +279,8 @@ const calculateLemburHariLibur = () => {
                 </div>
               ))}
               <div class="col-4 mb-4 align-self-end">
-                <div class="add-button form-control text-center" onClick={handleAddInputLibur}>
-                  <AddOutline
-                    color={'#6b6b6b'}
-                    height="24px"
-                    width="24px"
-                  />
+                <div class="d-flex add-button form-control" onClick={handleAddInputLibur}>
+                  <ion-icon name="add-outline" class="my-auto mx-auto"></ion-icon>
                 </div>
               </div>
             </div>
