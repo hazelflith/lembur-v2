@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CurrencyFormat from 'react-currency-format';
 
 export default function Home() {
@@ -8,6 +8,7 @@ export default function Home() {
   const [gajiPokok, setGajiPokok] = useState()
   const [gajiPokokShow, setGajiPokokShow] = useState()
   const [view, setView] = useState(false)
+  const [temp, setTemp] = useState(0)
   const [totalLembur, setTotalLembur] = useState()
   const [inputFields, setInputFields] = useState([{ value: '' }]);
   const [inputFieldsLibur, setInputFieldsLibur] = useState([]);
@@ -18,7 +19,7 @@ export default function Home() {
 
 
   const handlerTarif = (value) => {
-    if (value){
+    if(value){
       setGajiPokokShow(value);
       setGajiPokok(convertRupiahStringToNumber(value));
       setTarifLembur((1 / 173) * 0.57 * convertRupiahStringToNumber(value))
@@ -103,7 +104,7 @@ const calculateLemburHariKerja = () => {
 
       }
     })
-    setLemburKerja(Math.round(totalLemburHariKerja))
+    return Math.round(totalLemburHariKerja)
 }
 
 
@@ -115,8 +116,7 @@ const calculateLemburHariLibur = () => {
         totalLemburHariLibur += hariLibur[data.value.toString()] *  tarifLembur
       }     
     })
-
-    setLemburLibur(Math.round(totalLemburHariLibur))
+    return Math.round(totalLemburHariLibur)
 }
 
 
@@ -126,15 +126,21 @@ const calculateLemburHariLibur = () => {
   };
   
   const handleCountLemburKerja = () => {
-    calculateLemburHariKerja()
+    setLemburKerja(calculateLemburHariKerja())
   }
   const handleCountLemburLibur = () => {
-    calculateLemburHariLibur()
+    setLemburLibur(calculateLemburHariLibur())
   }
 
   const handleInputChange = (index, event) => {
     const newInputFields = [...inputFields];
-    newInputFields[index].value = event.target.value;
+    if(event.target.value <= 24){
+      newInputFields[index].value = event.target.value;
+    }
+    else{
+      event.target.value = 24
+      newInputFields[index].value = event.target.value;
+    }
     setInputFields(newInputFields);
     handleCountLemburKerja()
   };
@@ -146,15 +152,25 @@ const calculateLemburHariLibur = () => {
     const newInputFieldsLibur = [...inputFieldsLibur, { value: '' }];
     setInputFieldsLibur(newInputFieldsLibur);
   };
-
-  const calculateTotalLembur = () =>{
+  //Step 2
+  useEffect(() => {
+    setLemburLibur(calculateLemburHariLibur())
+    setTemp(temp+1)
+  }, [lemburKerja,lemburLibur,gajiPokok])
+  //Step 3
+  useEffect(() => {
     setTotalLembur(lemburKerja + lemburLibur)
-  }
+  }, [temp])
 
   const handleInputChangeLibur = (index, event) => {
     const newInputFieldsLibur = [...inputFieldsLibur];
-    newInputFieldsLibur[index].value = event.target.value;
-    setInputFieldsLibur(newInputFieldsLibur);
+    if(event.target.value <= 24){
+      newInputFieldsLibur[index].value = event.target.value;
+    }
+    else{
+      event.target.value = 24
+      newInputFieldsLibur[index].value = event.target.value;
+    }
     handleCountLemburLibur()
   };
   const saveData = () =>{
@@ -198,35 +214,36 @@ const calculateLemburHariLibur = () => {
   }
   return (
     <main>
-      <div class="container mw-425 pb-5">
-        <div class="py-3">
+      <div className="container mw-425 pb-5">
+        <div className="py-3">
           <h1>Lembur Calc 2.0</h1>
         </div>
         <form>
-          <div class="mb-4">
+          <div className="mb-4">
             <h6>Gaji Pokok :</h6>
             <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
               onChange={(event)=>handlerTarif(event.target.value)}
               placeholder= "Jumlah Gaji Pokok"
             />
           </div>
-          <div class="d-flex align-items-center">
-            <h6>Total Lembur Anda :</h6>
-            <CurrencyFormat value={totalLembur} displayType={'text'} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2'/>
-            <div className='btn btn-primary ms-auto' onClick={calculateTotalLembur}>Hitung</div>
+          <div className="d-flex align-items-center">
+            <div className='mb-2'>
+              <h6>Total Lembur Anda :</h6>
+              <CurrencyFormat value={totalLembur} displayType={'text'} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','/>
+            </div>
           </div>
-          <div class="d-flex">
+          <div className="d-flex">
             <div className='btn btn-danger me-2' onClick={loadData}>Load Data</div>
             <div className='btn btn-success'onClick={saveData}>Save Data</div>
           </div>
           <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
           {view && 
-            <div class="qris"></div>
+            <div className="qris"></div>
           }
           <hr></hr>
-          <div class="row g-2">
+          <div className="row g-2">
             {inputFields.map((inputField, index) => (
-              <div key={index} class="col-4 mb-4">
+              <div key={index} className="col-4 mb-4">
                 <h6>Hari kerja ke {index+1} :</h6>
                 <input
                   className='form-control'
@@ -238,13 +255,13 @@ const calculateLemburHariLibur = () => {
               </div>
             ))}
           </div>
-          <div class="btn btn-primary mb-2" onClick={handleAddInput}>
+          <div className="btn btn-primary mb-2" onClick={handleAddInput}>
               Tambah Hari
           </div>
           <hr className='mb-4'></hr>
-          <div class="row g-2">
+          <div className="row g-2">
             {inputFieldsLibur.map((inputFieldLibur, index) => (
-              <div key={index} class="col-4 mb-4">
+              <div key={index} className="col-4 mb-4">
                 <h6>Hari libur ke {index+1} :</h6>
                 <input
                   type="number"
@@ -256,7 +273,7 @@ const calculateLemburHariLibur = () => {
               </div>
             ))}
           </div>
-          <div class="btn btn-primary" onClick={handleAddInputLibur}>
+          <div className="btn btn-primary" onClick={handleAddInputLibur}>
               Tambah Hari Libur
           </div>
       </form>
