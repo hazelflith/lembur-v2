@@ -18,9 +18,11 @@ export default function Home() {
 
 
   const handlerTarif = (value) => {
-    setGajiPokokShow(value);
-    setGajiPokok(convertRupiahStringToNumber(value));
-    setTarifLembur((1 / 173) * 0.57 * convertRupiahStringToNumber(value))
+    if (value){
+      setGajiPokokShow(value);
+      setGajiPokok(convertRupiahStringToNumber(value));
+      setTarifLembur((1 / 173) * 0.57 * convertRupiahStringToNumber(value))
+    }
   }
 
   function convertRupiahStringToNumber(rupiahString) {
@@ -196,14 +198,14 @@ const calculateLemburHariLibur = () => {
   }
   return (
     <main>
-      <div class="container mw-425">
+      <div class="container mw-425 pb-5">
         <div class="py-3">
           <h1>Lembur Calc 2.0</h1>
         </div>
         <form>
           <div class="mb-4">
             <h6>Gaji Pokok :</h6>
-            <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2 form-control'
+            <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
               onChange={(event)=>handlerTarif(event.target.value)}
               placeholder= "Jumlah Gaji Pokok"
             />
@@ -222,34 +224,38 @@ const calculateLemburHariLibur = () => {
             <div class="qris"></div>
           }
           <hr></hr>
-          {inputFields.map((inputField, index) => (
-            <div key={index} class="mb-4">
-              <h6>Hari kerja ke {index+1} :</h6>
-              <input
-                className='form-control'
-                type="number"
-                placeholder={`Jam Lembur`}
-                value={inputField.value}
-                onChange={(event) => handleInputChange(index, event)}
-              />
-            </div>
-          ))}
+          <div class="row g-2">
+            {inputFields.map((inputField, index) => (
+              <div key={index} class="col-4 mb-4">
+                <h6>Hari kerja ke {index+1} :</h6>
+                <input
+                  className='form-control'
+                  type="number"
+                  placeholder={`Jam Lembur`}
+                  value={inputField.value}
+                  onChange={(event) => handleInputChange(index, event)}
+                />
+              </div>
+            ))}
+          </div>
           <div class="btn btn-primary mb-2" onClick={handleAddInput}>
               Tambah Hari
           </div>
           <hr className='mb-4'></hr>
-          {inputFieldsLibur.map((inputFieldLibur, index) => (
-            <div key={index} class="mb-4">
-              <h6>Hari libur ke {index+1} :</h6>
-              <input
-                type="number"
-                className='form-control'
-                placeholder="Jam Lembur"
-                value={inputFieldLibur.value}
-                onChange={(event) => handleInputChangeLibur(index, event)}
-              />
-            </div>
-          ))}
+          <div class="row g-2">
+            {inputFieldsLibur.map((inputFieldLibur, index) => (
+              <div key={index} class="col-4 mb-4">
+                <h6>Hari libur ke {index+1} :</h6>
+                <input
+                  type="number"
+                  className='form-control'
+                  placeholder="Jam Lembur"
+                  value={inputFieldLibur.value}
+                  onChange={(event) => handleInputChangeLibur(index, event)}
+                />
+              </div>
+            ))}
+          </div>
           <div class="btn btn-primary" onClick={handleAddInputLibur}>
               Tambah Hari Libur
           </div>
