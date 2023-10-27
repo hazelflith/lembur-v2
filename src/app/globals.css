@@ -65,7 +65,6 @@ a {
   text-decoration: none;
 }
 .mw-425{
-  background: white;
   max-width: 425px;
 }
 
@@ -82,11 +81,17 @@ a {
   background-position: center;
 }
 .fixed{
-  position: fixed;
-  background: white;
-  max-width: 425px;  
-  width: 89vw;
+  position: fixed !important;
+  background: white; 
+  max-width: 400px;
+  width: 100%;
+  top: 0;
 }
 .scroll{
   padding-top: 335px;
+}
+
+.navbar{
+  background: white;
+  display: block;
 }

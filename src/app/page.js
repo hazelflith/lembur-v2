@@ -214,10 +214,11 @@ const calculateLemburHariLibur = () => {
   return (
     <main>
       <div className="container mw-425 pb-5">
-          <div className='fixed'>
-            <div className="py-3">
-              <h1>Lembur Calc 2.0</h1>
-            </div>
+          <div className="navbar fixed-top mw-425 mx-auto px-2">
+            <div class="">
+              <div className="py-3">
+                <h1>Lembur Calc 2.0</h1>
+              </div>
               <div className="mb-4">
                 <h6>Gaji Pokok :</h6>
                 <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
@@ -237,6 +238,7 @@ const calculateLemburHariLibur = () => {
               </div>
               <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
               <hr></hr>
+            </div>
           </div>
           <div class="scroll">
             {view && 
