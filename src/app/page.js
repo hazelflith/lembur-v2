@@ -176,7 +176,6 @@ const calculateLemburHariLibur = () => {
   const saveData = () =>{
     localStorage.setItem('gajiPokok', gajiPokok)
     localStorage.setItem('gajiPokokShow', gajiPokokShow)
-    localStorage.setItem('totalLembur', totalLembur)
     localStorage.setItem('inputFields', JSON.stringify(inputFields))
     localStorage.setItem('inputFieldsLibur', JSON.stringify(inputFieldsLibur))
     localStorage.setItem('tarifLembur', tarifLembur)
@@ -186,7 +185,6 @@ const calculateLemburHariLibur = () => {
   const loadData = () => {
     const gaji = localStorage.getItem('gajiPokok')
     const gajiShow = localStorage.getItem('gajiPokokShow')
-    const total = localStorage.getItem('totalLembur')
     const tarif = localStorage.getItem('tarifLembur')
     const dataLibur = localStorage.getItem('lemburLibur')
     const dataKerja = localStorage.getItem('lemburKerja')
@@ -196,7 +194,6 @@ const calculateLemburHariLibur = () => {
     const dataLemburLiburParsed = JSON.parse(dataLemburLibur)
     setGajiPokok(gaji)
     setGajiPokokShow(gajiShow)
-    setTotalLembur(total)
     setTarifLembur(tarif)
     setLemburLibur(dataLibur)
     setLemburKerja(dataKerja)
