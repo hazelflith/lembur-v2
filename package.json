@@ -17,6 +17,7 @@
     "react-dom": "^18",
     "react-ionicons": "^4.2.1",
     "react-wow": "^1.0.0",
+    "sass": "^1.69.5",
     "wow.js": "^1.2.2"
   },
   "devDependencies": {

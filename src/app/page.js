@@ -9,11 +9,11 @@ export default function Home() {
   const [gajiPokokShow, setGajiPokokShow] = useState()
   const [view, setView] = useState(false)
   const [temp, setTemp] = useState(0)
-  const [totalLembur, setTotalLembur] = useState()
+  const [totalLembur, setTotalLembur] = useState(0)
+  const [arrTotalLembur, setArrTotalLembur] = useState([])
   const [inputFields, setInputFields] = useState([{ value: '' }]);
   const [inputFieldsLibur, setInputFieldsLibur] = useState([]);
   const [tarifLembur, setTarifLembur ] = useState(0)
-
   const [lemburLibur, setLemburLibur] = useState(0)
   const [lemburKerja, setLemburKerja] = useState(0)
   
@@ -151,6 +151,18 @@ const calculateLemburHariLibur = () => {
     const newInputFieldsLibur = [...inputFieldsLibur, { value: '' }];
     setInputFieldsLibur(newInputFieldsLibur);
   };
+
+  function splitEveryN(str, n) {
+    const arr = [];
+    str = str.toString()
+  
+    for (let index = str.length; index > 0; index -= n) {
+      arr.unshift(parseInt(str.slice(Math.max(index - n, 0), index)))
+    }
+  
+    return arr;
+  }
+
   //Step 2
   useEffect(() => {
     setLemburKerja(calculateLemburHariKerja())
@@ -161,6 +173,16 @@ const calculateLemburHariLibur = () => {
   useEffect(() => {
     setTotalLembur(lemburKerja + lemburLibur)
   }, [temp])
+  useEffect(() => {
+    setArrTotalLembur(splitEveryN(totalLembur, 3))    
+  }, [totalLembur])
+  useEffect(() => {
+    console.log(arrTotalLembur[1])
+    for (let i = 0; i < arrTotalLembur.length; i++) {
+      document.querySelector("#lembur" + i).style.setProperty("--num", arrTotalLembur[i]);
+    }  
+  }, [arrTotalLembur])
+  
 
   const handleInputChangeLibur = (index, event) => {
     const newInputFieldsLibur = [...inputFieldsLibur];
@@ -228,7 +250,13 @@ const calculateLemburHariLibur = () => {
               <div className="d-flex align-items-center">
                 <div className='mb-2'>
                   <h6>Total Lembur Anda :</h6>
-                  <CurrencyFormat value={totalLembur} displayType={'text'} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','/>
+                  <div class="d-flex">
+                    Rp{arrTotalLembur.map((arr, index) => (
+                      <>
+                        .<div class="totalgaji" id={"lembur" + index}/>
+                      </>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="d-flex">

@@ -112,6 +112,19 @@ ion-icon{
   animation-name: fadeIn;
   animation-duration: 1s;
 }
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.totalgaji {
+  transition: --num .75s;
+  counter-set: num var(--num);
+}
+.totalgaji::after {
+  content: counter(num);
+}
 
 @keyframes fadeIn{
   from {opacity: 0;}
