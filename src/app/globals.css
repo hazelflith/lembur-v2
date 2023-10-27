@@ -81,3 +81,12 @@ a {
   background-size: contain;
   background-position: center;
 }
+.fixed{
+  position: fixed;
+  background: white;
+  max-width: 425px;  
+  width: 100%;
+}
+.scroll{
+  padding-top: 335px;
+}
