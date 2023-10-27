@@ -6,6 +6,7 @@ import CurrencyFormat from 'react-currency-format';
 export default function Home() {
 
   const [gajiPokok, setGajiPokok] = useState()
+  const [gajiPokokShow, setGajiPokokShow] = useState()
   const [view, setView] = useState(false)
   const [totalLembur, setTotalLembur] = useState()
   const [inputFields, setInputFields] = useState([{ value: '' }]);
@@ -17,10 +18,23 @@ export default function Home() {
 
 
   const handlerTarif = (value) => {
-    setGajiPokok(value);
-    setTarifLembur((1 / 173) * 0.57 * value)
+    setGajiPokokShow(value);
+    setGajiPokok(convertRupiahStringToNumber(value));
+    setTarifLembur((1 / 173) * 0.57 * convertRupiahStringToNumber(value))
   }
 
+  function convertRupiahStringToNumber(rupiahString) {
+    // Remove non-numeric characters
+    const numericString = rupiahString.replace(/[^0-9,]/g, '');
+  
+    // Replace commas with dots (for thousands separator)
+    const formattedString = numericString.replace(/,/g, '.');
+  
+    // Parse the string as a float
+    const number = parseFloat(formattedString);
+  
+    return number;
+  }
 
   const hariKerja = {
     "0":0,
@@ -143,6 +157,7 @@ const calculateLemburHariLibur = () => {
   };
   const saveData = () =>{
     localStorage.setItem('gajiPokok', gajiPokok)
+    localStorage.setItem('gajiPokokShow', gajiPokokShow)
     localStorage.setItem('totalLembur', totalLembur)
     localStorage.setItem('inputFields', JSON.stringify(inputFields))
     localStorage.setItem('inputFieldsLibur', JSON.stringify(inputFieldsLibur))
@@ -152,6 +167,7 @@ const calculateLemburHariLibur = () => {
   }
   const loadData = () => {
     const gaji = localStorage.getItem('gajiPokok')
+    const gajiShow = localStorage.getItem('gajiPokokShow')
     const total = localStorage.getItem('totalLembur')
     const tarif = localStorage.getItem('tarifLembur')
     const dataLibur = localStorage.getItem('lemburLibur')
@@ -161,6 +177,7 @@ const calculateLemburHariLibur = () => {
     const dataLemburKerjaParsed = JSON.parse(dataLemburKerja)
     const dataLemburLiburParsed = JSON.parse(dataLemburLibur)
     setGajiPokok(gaji)
+    setGajiPokokShow(gajiShow)
     setTotalLembur(total)
     setTarifLembur(tarif)
     setLemburLibur(dataLibur)
@@ -186,7 +203,7 @@ const calculateLemburHariLibur = () => {
         <form>
           <div class="mb-4">
             <h6>Gaji Pokok :</h6>
-            <CurrencyFormat value={gajiPokok} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2 form-control'
+            <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 ms-2 form-control'
               onChange={(event)=>handlerTarif(event.target.value)}
               placeholder= "Jumlah Gaji Pokok"
             />
