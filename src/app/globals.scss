@@ -125,6 +125,10 @@ ion-icon{
 .totalgaji::after {
   content: counter(num);
 }
+.lemburwrapper{
+  max-width: 32.788px;
+  overflow: hidden;
+}
 
 @keyframes fadeIn{
   from {opacity: 0;}

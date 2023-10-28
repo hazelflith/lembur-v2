@@ -155,11 +155,15 @@ const calculateLemburHariLibur = () => {
   function splitEveryN(str, n) {
     const arr = [];
     str = str.toString()
-  
-    for (let index = str.length; index > 0; index -= n) {
-      arr.unshift(parseInt(str.slice(Math.max(index - n, 0), index)))
+    let index = str.length;
+
+    while (index > 0) {
+        const endIndex = index;
+        const startIndex = Math.max(endIndex - 3, 0);
+        arr.unshift(parseInt(str.slice(startIndex, endIndex)));
+        index = startIndex;
     }
-  
+
     return arr;
   }
 
@@ -177,9 +181,29 @@ const calculateLemburHariLibur = () => {
     setArrTotalLembur(splitEveryN(totalLembur, 3))    
   }, [totalLembur])
   useEffect(() => {
-    console.log(arrTotalLembur[1])
+    console.log(arrTotalLembur)
     for (let i = 0; i < arrTotalLembur.length; i++) {
       document.querySelector("#lembur" + i).style.setProperty("--num", arrTotalLembur[i]);
+      if (i > 0){
+        console.log(arrTotalLembur[i].toString().length)
+        if (arrTotalLembur[i].toString().length == 3){
+        
+            document.querySelector("#lemburbefore" + i).innerHTML = '';
+        
+        }
+        if (arrTotalLembur[i].toString().length == 2){
+
+            document.querySelector("#lemburbefore" + i).innerHTML = '0';
+         
+        }
+        if (arrTotalLembur[i].toString().length == 1){
+        
+            document.querySelector("#lemburbefore" + i).innerHTML = '00';
+       
+        }
+        
+      }
+      
     }  
   }, [arrTotalLembur])
   
@@ -253,7 +277,9 @@ const calculateLemburHariLibur = () => {
                   <div class="d-flex">
                     Rp{arrTotalLembur.map((arr, index) => (
                       <>
-                        .<div class="totalgaji" id={"lembur" + index}/>
+                        <div class="lemburwrapper d-flex">
+                          .<div id={"lemburbefore" + index}/><div class="totalgaji" id={"lembur" + index}/>
+                        </div>
                       </>
                     ))}
                   </div>
