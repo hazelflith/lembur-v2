@@ -322,7 +322,7 @@ const calculateLemburHariLibur = () => {
               <div className="d-flex align-items-center mb-2">
                 <div className='col-6'>
                   <h6>Total Lembur Anda :</h6>
-                  <div className={`d-flex ${totalLembur > 3000000 ? "color-gold" : ""} ${totalLembur > 2000000 ? "color-green" : ""} ${totalLembur > 1000000 ? "color-blue" : ""}`}>
+                  <div className={`d-flex ${totalLembur > 3000000 ? "color-gold" : (totalLembur > 2000000 ? "color-green" : (totalLembur > 1000000 ? "color-blue" : ""))}  `}>
                     Rp{arrTotalLembur.map((arr, index) => (
                       <>
                         <div class="lemburwrapper d-flex">
