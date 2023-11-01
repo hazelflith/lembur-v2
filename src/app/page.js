@@ -16,6 +16,9 @@ export default function Home() {
   const [tarifLembur, setTarifLembur ] = useState(0)
   const [lemburLibur, setLemburLibur] = useState(0)
   const [lemburKerja, setLemburKerja] = useState(0)
+  const [hariLemburLibur, setHariLemburLibur] = useState(0)
+  const [hariLemburKerja, setHariLemburKerja] = useState(0)
+  const [hariLemburTotal, setHariLemburTotal] = useState(0)
   
   const handlerTarif = (value) => {
     if(value){
@@ -93,7 +96,32 @@ const hariLibur = {
     "23": 77,
     "24": 81
 }
+const calculateHariLemburKerja = () => {
+  let totalHariLemburKerja = 0
 
+  for (let index = 0; index < inputFields.length; index++) {
+    if(inputFields[index].value == ''){
+      totalHariLemburKerja = parseInt(totalHariLemburKerja) + 0
+    }
+    else{
+      totalHariLemburKerja = parseInt(totalHariLemburKerja) + parseInt(inputFields[index].value)
+    }
+  }
+  setHariLemburKerja(totalHariLemburKerja)
+}
+const calculateHariLemburLibur = () => {
+  let totalHariLemburLibur = 0
+
+  for (let index = 0; index < inputFieldsLibur.length; index++) {
+    if(inputFieldsLibur[index].value == ''){
+      totalHariLemburLibur = parseInt(totalHariLemburLibur) + 0
+    }
+    else{
+      totalHariLemburLibur = parseInt(totalHariLemburLibur) + parseInt(inputFieldsLibur[index].value)
+    }
+  }
+  setHariLemburLibur(totalHariLemburLibur)
+}
 const calculateLemburHariKerja = () => {
     let totalLemburHariKerja = 0
 
@@ -141,6 +169,7 @@ const calculateLemburHariLibur = () => {
       newInputFields[index].value = event.target.value;
     }
     setInputFields(newInputFields);
+    calculateHariLemburKerja();
     handleCountLemburKerja()
   };
 
@@ -206,6 +235,21 @@ const calculateLemburHariLibur = () => {
       
     }  
   }, [arrTotalLembur])
+
+  useEffect(() => {
+    let temp
+    console.log(hariLemburKerja)
+    console.log(hariLemburLibur)
+    temp = hariLemburKerja + hariLemburLibur
+    console.log(temp)
+    setHariLemburTotal(temp)
+  }, [hariLemburKerja, hariLemburLibur])
+
+  useEffect(() => {
+    document.querySelector(".harilembur").style.setProperty("--num2", hariLemburTotal);
+  }, [hariLemburTotal])
+  
+  
   
 
   const handleInputChangeLibur = (index, event) => {
@@ -217,6 +261,7 @@ const calculateLemburHariLibur = () => {
       event.target.value = 24
       newInputFieldsLibur[index].value = event.target.value;
     }
+    calculateHariLemburLibur();
     handleCountLemburLibur()
   };
   const saveData = () =>{
@@ -229,22 +274,24 @@ const calculateLemburHariLibur = () => {
     localStorage.setItem('lemburKerja', lemburKerja)
   }
   const loadData = () => {
-    const gaji = localStorage.getItem('gajiPokok')
-    const gajiShow = localStorage.getItem('gajiPokokShow')
-    const tarif = localStorage.getItem('tarifLembur')
-    const dataLibur = localStorage.getItem('lemburLibur')
-    const dataKerja = localStorage.getItem('lemburKerja')
-    const dataLemburKerja = localStorage.getItem('inputFields')
-    const dataLemburLibur = localStorage.getItem('inputFieldsLibur')
-    const dataLemburKerjaParsed = JSON.parse(dataLemburKerja)
-    const dataLemburLiburParsed = JSON.parse(dataLemburLibur)
-    setGajiPokok(gaji)
-    setGajiPokokShow(gajiShow)
-    setTarifLembur(tarif)
-    setLemburLibur(dataLibur)
-    setLemburKerja(dataKerja)
-    setInputFields(dataLemburKerjaParsed)
-    setInputFieldsLibur(dataLemburLiburParsed)
+    if(localStorage.getItem('gajiPokok')){
+      const gaji = localStorage.getItem('gajiPokok')
+      const gajiShow = localStorage.getItem('gajiPokokShow')
+      const tarif = localStorage.getItem('tarifLembur')
+      const dataLibur = localStorage.getItem('lemburLibur')
+      const dataKerja = localStorage.getItem('lemburKerja')
+      const dataLemburKerja = localStorage.getItem('inputFields')
+      const dataLemburLibur = localStorage.getItem('inputFieldsLibur')
+      const dataLemburKerjaParsed = JSON.parse(dataLemburKerja)
+      const dataLemburLiburParsed = JSON.parse(dataLemburLibur)
+      setGajiPokok(gaji)
+      setGajiPokokShow(gajiShow)
+      setTarifLembur(tarif)
+      setLemburLibur(dataLibur)
+      setLemburKerja(dataKerja)
+      setInputFields(dataLemburKerjaParsed)
+      setInputFieldsLibur(dataLemburLiburParsed)
+    }
   }
 
   const handleQris = () => {
@@ -259,22 +306,23 @@ const calculateLemburHariLibur = () => {
   return (
     <main>
       <div className="container mw-425 pb-5">
+        {totalLembur > 3000000 && <div class="money"></div>}
           <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
               <div className="py-3">
                 <h1>Lembur Calc 2.0</h1>
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <h6>Gaji Pokok :</h6>
                 <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
                   onChange={(event)=>handlerTarif(event.target.value)}
                   placeholder= "Jumlah Gaji Pokok"
                 />
               </div>
-              <div className="d-flex align-items-center">
-                <div className='mb-2'>
+              <div className="d-flex align-items-center mb-2">
+                <div className='col-6'>
                   <h6>Total Lembur Anda :</h6>
-                  <div class="d-flex">
+                  <div className={`d-flex ${totalLembur > 3000000 ? "color-gold" : ""} ${totalLembur > 2000000 ? "color-green" : ""} ${totalLembur > 1000000 ? "color-blue" : ""}`}>
                     Rp{arrTotalLembur.map((arr, index) => (
                       <>
                         <div class="lemburwrapper d-flex">
@@ -282,6 +330,17 @@ const calculateLemburHariLibur = () => {
                         </div>
                       </>
                     ))}
+                  </div>
+                </div>
+                <div className='col-6'>
+                  <h6>Total Jam Lembur :</h6>
+                  <div class="d-flex">
+                    {hariLemburTotal > 72 ? (
+                      <div class="color-red harilembur me-1"></div>
+                    ) : (
+                      <div class="harilembur me-1"></div>
+                    )}
+                    Jam
                   </div>
                 </div>
               </div>
