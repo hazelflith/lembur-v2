@@ -8,6 +8,8 @@ export default function Home() {
   const [gajiPokok, setGajiPokok] = useState()
   const [gajiPokokShow, setGajiPokokShow] = useState()
   const [view, setView] = useState(false)
+  const [viewSaveAlert, setViewSaveAlert] = useState(false)
+  const [viewLoadAlert, setViewLoadAlert] = useState(false)
   const [temp, setTemp] = useState(0)
   const [totalLembur, setTotalLembur] = useState(0)
   const [arrTotalLembur, setArrTotalLembur] = useState([])
@@ -246,6 +248,14 @@ const calculateLemburHariLibur = () => {
   }, [hariLemburKerja, hariLemburLibur])
 
   useEffect(() => {
+    setTimeout(() => {
+      setViewLoadAlert(false)
+      setViewSaveAlert(false)
+    }, 5000);
+  }, [viewLoadAlert, viewSaveAlert])
+  
+
+  useEffect(() => {
     document.querySelector(".harilembur").style.setProperty("--num2", hariLemburTotal);
   }, [hariLemburTotal])
   
@@ -272,6 +282,8 @@ const calculateLemburHariLibur = () => {
     localStorage.setItem('tarifLembur', tarifLembur)
     localStorage.setItem('lemburLibur', lemburLibur)
     localStorage.setItem('lemburKerja', lemburKerja)
+    localStorage.setItem('hariLemburTotal', hariLemburTotal)
+    setViewSaveAlert(true)
   }
   const loadData = () => {
     if(localStorage.getItem('gajiPokok')){
@@ -280,6 +292,7 @@ const calculateLemburHariLibur = () => {
       const tarif = localStorage.getItem('tarifLembur')
       const dataLibur = localStorage.getItem('lemburLibur')
       const dataKerja = localStorage.getItem('lemburKerja')
+      const dataHari = localStorage.getItem('hariLemburTotal')
       const dataLemburKerja = localStorage.getItem('inputFields')
       const dataLemburLibur = localStorage.getItem('inputFieldsLibur')
       const dataLemburKerjaParsed = JSON.parse(dataLemburKerja)
@@ -291,6 +304,8 @@ const calculateLemburHariLibur = () => {
       setLemburKerja(dataKerja)
       setInputFields(dataLemburKerjaParsed)
       setInputFieldsLibur(dataLemburLiburParsed)
+      setHariLemburTotal(dataHari)
+      setViewLoadAlert(true)
     }
   }
 
@@ -349,6 +364,13 @@ const calculateLemburHariLibur = () => {
                 <div className='btn btn-success'onClick={saveData}>Save Data</div>
               </div>
               <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
+              {viewSaveAlert && <div class="alert alert-success animate" role="alert">
+                Save data sukses!
+              </div>}
+              {viewLoadAlert && <div class="alert alert-success animate" role="alert">
+                Load data sukses!
+              </div>}
+              
               <hr></hr>
             </div>
           </div>
