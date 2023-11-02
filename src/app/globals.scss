@@ -38,6 +38,26 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --main-background: white;
+  --links: blue;
+  --bs-heading-color: black;
+  --text-color: black;
+  --bs-body-color: black;
+  --bs-body-bg: white;
+  --bs-border-color: rgb(118, 118, 118);
+  --placeholder: gray;
+  --add-button: rgb(217, 217, 217);
+  --add-button-hover: rgb(198, 198, 198);
+  --btn-danger-color: white;
+  --btn-danger: #dc3545;
+  --btn-danger-hover: #491016;
+  --btn-success-hover: #0d472c;
+  --btn-success:#198754;
+  --btn-success-color:white;
+}
+::placeholder{
+  color: var(--placeholder) !important;
 }
 input::-webkit-inner-spin-button{
   -webkit-appearance: none;
@@ -54,10 +74,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
+  background-color: var(--main-background);
+  color: var(--text-color);
+  transition: background-color 1s;
 }
 
 a {
@@ -69,7 +88,7 @@ a {
 }
 
 .donasi{
-  color: blue;
+  color: var(--links);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -82,7 +101,7 @@ a {
 }
 .fixed{
   position: fixed !important;
-  background: white; 
+  background: var(--main-background); 
   max-width: 400px;
   width: 100%;
   top: 0;
@@ -92,16 +111,17 @@ a {
 }
 
 .navbar{
-  background: white;
+  background: var(--main-background);
   display: block;
+  transition: background-color 1s;
 }
 .add-button{
-  background-color: rgb(217, 217, 217);
+  background-color: var(--add-button);
   transition: .1s ease-in;
   cursor: pointer;
 }
 .add-button:hover{
-  background-color: rgb(198, 198, 198);
+  background-color: var(--add-button-hover);
   
 }
 ion-icon{
@@ -161,8 +181,8 @@ ion-icon{
   color: gold;
 }
 .money{
-  background: url(/images/money.gif);
-  background-size: cover;
+  background: url(/images/money4.gif) no-repeat;
+  background-size: contain;
   background-position: center;
   position: fixed;
   top: 0;
@@ -171,4 +191,23 @@ ion-icon{
   height: 100%;
   z-index: 10000;
   pointer-events: none;
+}
+.form-control{
+  transition: background-color 1s;
+}
+.btn-danger{
+  background-color: var(--btn-danger);
+  color: var(--btn-danger-color);
+  transition: background-color 1s;
+}
+.btn-danger:hover{
+  background-color: var(--btn-danger-hover);
+}
+.btn-success{
+  background-color: var(--btn-success);
+  color: var(--btn-success-color);
+  transition: background-color 1s;
+}
+.btn-success:hover{
+  background-color: var(--btn-success-hover);
 }

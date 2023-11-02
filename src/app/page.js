@@ -8,6 +8,7 @@ export default function Home() {
   const [gajiPokok, setGajiPokok] = useState()
   const [gajiPokokShow, setGajiPokokShow] = useState()
   const [view, setView] = useState(false)
+  const [theme, setTheme] = useState(false)
   const [viewSaveAlert, setViewSaveAlert] = useState(false)
   const [viewLoadAlert, setViewLoadAlert] = useState(false)
   const [temp, setTemp] = useState(0)
@@ -318,6 +319,51 @@ const calculateLemburHariLibur = () => {
       setView(false)
     }
   }
+  const switchTheme = () => {
+    if(theme){
+      setTheme(false)
+    }
+    else{
+      setTheme(true)
+    }
+  }
+  
+  useEffect(() => {
+    if(theme){
+      document.querySelector(":root").style.setProperty("--main-background", "black");
+      document.querySelector(":root").style.setProperty("--bs-heading-color", "#00dc82");
+      document.querySelector(":root").style.setProperty("--bs-body-color", "#00dc82");
+      document.querySelector(":root").style.setProperty("--bs-border-color", "#00dc82");
+      document.querySelector(":root").style.setProperty("--bs-body-bg", "black");
+      document.querySelector(":root").style.setProperty("--placeholder", "green");
+      document.querySelector(":root").style.setProperty("--text-color", "#00dc82");
+      document.querySelector(":root").style.setProperty("--add-button", "black");
+      document.querySelector(":root").style.setProperty("--btn-success", "black");
+      document.querySelector(":root").style.setProperty("--btn-success-color", "#198754");
+      document.querySelector(":root").style.setProperty("--btn-danger", "black");
+      document.querySelector(":root").style.setProperty("--btn-danger-color", "#dc3545");
+      document.querySelector(":root").style.setProperty("--add-button-hover", "rgb(27, 27, 27)");
+      document.querySelector(":root").style.setProperty("--links", "#00dc82");
+    }
+    else{
+      document.querySelector(":root").style.setProperty("--main-background", "white");
+      document.querySelector(":root").style.setProperty("--bs-heading-color", "black");
+      document.querySelector(":root").style.setProperty("--bs-body-color", "black");
+      document.querySelector(":root").style.setProperty("--bs-border-color", "rgb(118, 118, 118)");
+      document.querySelector(":root").style.setProperty("--bs-body-bg", "white");
+      document.querySelector(":root").style.setProperty("--placeholder", "gray");
+      document.querySelector(":root").style.setProperty("--text-color", "black");
+      document.querySelector(":root").style.setProperty("--add-button", "rgb(217, 217, 217)");
+      document.querySelector(":root").style.setProperty("--add-button-hover", "rgb(198, 198, 198)");
+      document.querySelector(":root").style.setProperty("--btn-success", "#198754");
+      document.querySelector(":root").style.setProperty("--btn-success-color", "white");
+      document.querySelector(":root").style.setProperty("--btn-danger", "#dc3545");
+      document.querySelector(":root").style.setProperty("--btn-danger-color", "white");
+      document.querySelector(":root").style.setProperty("--links", "blue");
+    }
+    
+  }, [theme])
+  
   return (
     <main>
       <div className="container mw-425 pb-5">
@@ -362,6 +408,7 @@ const calculateLemburHariLibur = () => {
               <div className="d-flex">
                 <div className='btn btn-danger me-2' onClick={loadData}>Load Data</div>
                 <div className='btn btn-success'onClick={saveData}>Save Data</div>
+                <div className='btn'onClick={switchTheme}>Dark Mode</div>
               </div>
               <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
               {viewSaveAlert && <div class="alert alert-success animate" role="alert">
@@ -376,7 +423,7 @@ const calculateLemburHariLibur = () => {
           </div>
           <div class="scroll">
             {view && 
-              <div className="qris animate"></div>
+              <div className="qris animate mb-2"></div>
             }
             <div className="row g-2">
             <h5>Hari Kerja</h5>
