@@ -370,8 +370,16 @@ const calculateLemburHariLibur = () => {
         {totalLembur > 3000000 && <div class="money"></div>}
           <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
-              <div className="py-3">
+              <div className="d-flex py-3">
                 <h1>Lembur Calc 2.0</h1>
+                <div class="toggle-wrapper">
+                  <div class = 'toggle-switch'>
+                    <label>
+                        <input type = 'checkbox' class="switch-input"/>
+                        <span class = 'slider' onClick={switchTheme}></span>
+                    </label>
+                  </div>
+                </div>
               </div>
               <div className="mb-2">
                 <h6>Gaji Pokok :</h6>
@@ -408,7 +416,6 @@ const calculateLemburHariLibur = () => {
               <div className="d-flex">
                 <div className='btn btn-danger me-2' onClick={loadData}>Load Data</div>
                 <div className='btn btn-success'onClick={saveData}>Save Data</div>
-                <div className='btn'onClick={switchTheme}>Dark Mode</div>
               </div>
               <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
               {viewSaveAlert && <div class="alert alert-success animate" role="alert">
