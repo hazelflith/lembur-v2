@@ -372,13 +372,29 @@ const calculateLemburHariLibur = () => {
             <div class="">
               <div className="d-flex py-3">
                 <h1>Lembur Calc 2.0</h1>
-                <div class="toggle-wrapper">
+                {/* <div class="toggle-wrapper">
                   <div class = 'toggle-switch'>
                     <label>
                         <input type = 'checkbox' class="switch-input"/>
                         <span class = 'slider' onClick={switchTheme}></span>
                     </label>
                   </div>
+                </div> */}
+                <div class="toggleWrapper">
+                  <input type="checkbox" class="dn" id="dn"/>
+                  <label for="dn" onClick={switchTheme} class="toggle">
+                    <span class="toggle__handler">
+                      <span class="crater crater--1"></span>
+                      <span class="crater crater--2"></span>
+                      <span class="crater crater--3"></span>
+                    </span>
+                    <span class="star star--1"></span>
+                    <span class="star star--2"></span>
+                    <span class="star star--3"></span>
+                    <span class="star star--4"></span>
+                    <span class="star star--5"></span>
+                    <span class="star star--6"></span>
+                  </label>
                 </div>
               </div>
               <div className="mb-2">
