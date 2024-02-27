@@ -372,13 +372,12 @@ const calculateLemburHariLibur = () => {
             <div class="">
               <div className="d-flex py-3">
                 <h1>Lembur Calc v3</h1>
-                <p>Adjusted PKB 2024</p>
                 {/* <div class="toggle-wrapper">
                   <div class = 'toggle-switch'>
-                    <label>
-                        <input type = 'checkbox' class="switch-input"/>
-                        <span class = 'slider' onClick={switchTheme}></span>
-                    </label>
+                  <label>
+                  <input type = 'checkbox' class="switch-input"/>
+                  <span class = 'slider' onClick={switchTheme}></span>
+                  </label>
                   </div>
                 </div> */}
                 <div class="toggleWrapper">
@@ -398,6 +397,7 @@ const calculateLemburHariLibur = () => {
                   </label>
                 </div>
               </div>
+              <p>Adjusted PKB 2024</p>
               <div className="mb-2">
                 <h6>Gaji Pokok :</h6>
                 <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
