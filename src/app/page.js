@@ -370,7 +370,7 @@ const calculateLemburHariLibur = () => {
         {totalLembur > 3000000 && <div class="money"></div>}
           <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
-              <div className="d-flex py-3">
+              <div className="d-flex py-3 pb-2">
                 <h1>Lembur Calc v3</h1>
                 {/* <div class="toggle-wrapper">
                   <div class = 'toggle-switch'>
@@ -397,7 +397,7 @@ const calculateLemburHariLibur = () => {
                   </label>
                 </div>
               </div>
-              <p>Adjusted PKB 2024</p>
+              <p class="m-0">Adjusted PKB 2024</p>
               <div className="mb-2">
                 <h6>Gaji Pokok :</h6>
                 <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
