@@ -27,7 +27,7 @@ export default function Home() {
     if(value){
       setGajiPokokShow(value);
       setGajiPokok(convertRupiahStringToNumber(value));
-      setTarifLembur((1 / 173) * 0.57 * convertRupiahStringToNumber(value))
+      setTarifLembur((1 / 173) * 1 * convertRupiahStringToNumber(value))
     }
   }
 
