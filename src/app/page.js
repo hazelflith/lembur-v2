@@ -371,7 +371,8 @@ const calculateLemburHariLibur = () => {
           <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
               <div className="d-flex py-3">
-                <h1>Lembur Calc v2.5</h1>
+                <h1>Lembur Calc v3</h1>
+                <p>Adjusted PKB 2024</p>
                 {/* <div class="toggle-wrapper">
                   <div class = 'toggle-switch'>
                     <label>
