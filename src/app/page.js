@@ -445,7 +445,7 @@ const calculateLemburHariLibur = () => {
           <div className="navbar fixed-top mw-425 mx-auto px-2 pb-0">
             <div class="">
               <div className="d-flex py-3 pb-2">
-                <h1>Lembur Calc v4 (Quantum)</h1>
+                <h1>Lembur Calc v4</h1>
                 {/* <div class="toggle-wrapper">
                   <div class = 'toggle-switch'>
                   <label>
@@ -471,6 +471,7 @@ const calculateLemburHariLibur = () => {
                   </label>
                 </div>
               </div>
+              <p class="m-0">Adjusted to Quantum Calculation</p>
               <div className="mb-2">
                 <h6>Gaji Pokok :</h6>
                 <CurrencyFormat value={gajiPokokShow} thousandSeparator={'.'} prefix={'Rp.'} decimalSeparator=','  className='mb-2 form-control'
