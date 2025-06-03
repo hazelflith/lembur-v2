@@ -22,7 +22,11 @@ export default function Home() {
   const [hariLemburLibur, setHariLemburLibur] = useState(0)
   const [hariLemburKerja, setHariLemburKerja] = useState(0)
   const [hariLemburTotal, setHariLemburTotal] = useState(0)
+  const [formattedJamLembur, setFormattedJamLembur] = useState('0.00');
   
+  const harilemburRef = React.useRef(null);
+  const prevJamLembur = React.useRef(0);
+
   const handlerTarif = (value) => {
     if(value){
       setGajiPokokShow(value);
@@ -105,8 +109,28 @@ export default function Home() {
     "675": 11.25, "676": 11.25, "677": 11.25, "678": 11.25, "679": 11.25, "680": 11.25, "681": 11.25, "682": 11.25, "683": 11.25, "684": 11.25, "685": 11.25, "686": 11.25, "687": 11.25, "688": 11.25, "689": 11.25,
     "690": 11.5, "691": 11.5, "692": 11.5, "693": 11.5, "694": 11.5, "695": 11.5, "696": 11.5, "697": 11.5, "698": 11.5, "699": 11.5, "700": 11.5, "701": 11.5, "702": 11.5, "703": 11.5, "704": 11.5,
     "705": 11.75, "706": 11.75, "707": 11.75, "708": 11.75, "709": 11.75, "710": 11.75, "711": 11.75, "712": 11.75, "713": 11.75, "714": 11.75, "715": 11.75, "716": 11.75, "717": 11.75, "718": 11.75, "719": 11.75,
-    // Maximum value (720 minutes = 12 hours)
-    "720": 12
+    // Thirteenth hour (720-779 minutes)
+    "720": 12, "721": 12, "722": 12, "723": 12, "724": 12, "725": 12, "726": 12, "727": 12, "728": 12, "729": 12, "730": 12, "731": 12, "732": 12, "733": 12, "734": 12,
+    "735": 12.25, "736": 12.25, "737": 12.25, "738": 12.25, "739": 12.25, "740": 12.25, "741": 12.25, "742": 12.25, "743": 12.25, "744": 12.25, "745": 12.25, "746": 12.25, "747": 12.25, "748": 12.25, "749": 12.25,
+    "750": 12.5, "751": 12.5, "752": 12.5, "753": 12.5, "754": 12.5, "755": 12.5, "756": 12.5, "757": 12.5, "758": 12.5, "759": 12.5, "760": 12.5, "761": 12.5, "762": 12.5, "763": 12.5, "764": 12.5,
+    "765": 12.75, "766": 12.75, "767": 12.75, "768": 12.75, "769": 12.75, "770": 12.75, "771": 12.75, "772": 12.75, "773": 12.75, "774": 12.75, "775": 12.75, "776": 12.75, "777": 12.75, "778": 12.75, "779": 12.75,
+    // Fourteenth hour (780-839 minutes)
+    "780": 13, "781": 13, "782": 13, "783": 13, "784": 13, "785": 13, "786": 13, "787": 13, "788": 13, "789": 13, "790": 13, "791": 13, "792": 13, "793": 13, "794": 13,
+    "795": 13.25, "796": 13.25, "797": 13.25, "798": 13.25, "799": 13.25, "800": 13.25, "801": 13.25, "802": 13.25, "803": 13.25, "804": 13.25, "805": 13.25, "806": 13.25, "807": 13.25, "808": 13.25, "809": 13.25,
+    "810": 13.5, "811": 13.5, "812": 13.5, "813": 13.5, "814": 13.5, "815": 13.5, "816": 13.5, "817": 13.5, "818": 13.5, "819": 13.5, "820": 13.5, "821": 13.5, "822": 13.5, "823": 13.5, "824": 13.5,
+    "825": 13.75, "826": 13.75, "827": 13.75, "828": 13.75, "829": 13.75, "830": 13.75, "831": 13.75, "832": 13.75, "833": 13.75, "834": 13.75, "835": 13.75, "836": 13.75, "837": 13.75, "838": 13.75, "839": 13.75,
+    // Fifteenth hour (840-899 minutes)
+    "840": 14, "841": 14, "842": 14, "843": 14, "844": 14, "845": 14, "846": 14, "847": 14, "848": 14, "849": 14, "850": 14, "851": 14, "852": 14, "853": 14, "854": 14,
+    "855": 14.25, "856": 14.25, "857": 14.25, "858": 14.25, "859": 14.25, "860": 14.25, "861": 14.25, "862": 14.25, "863": 14.25, "864": 14.25, "865": 14.25, "866": 14.25, "867": 14.25, "868": 14.25, "869": 14.25,
+    "870": 14.5, "871": 14.5, "872": 14.5, "873": 14.5, "874": 14.5, "875": 14.5, "876": 14.5, "877": 14.5, "878": 14.5, "879": 14.5, "880": 14.5, "881": 14.5, "882": 14.5, "883": 14.5, "884": 14.5,
+    "885": 14.75, "886": 14.75, "887": 14.75, "888": 14.75, "889": 14.75, "890": 14.75, "891": 14.75, "892": 14.75, "893": 14.75, "894": 14.75, "895": 14.75, "896": 14.75, "897": 14.75, "898": 14.75, "899": 14.75,
+    // Sixteenth hour (900-959 minutes)
+    "900": 15, "901": 15, "902": 15, "903": 15, "904": 15, "905": 15, "906": 15, "907": 15, "908": 15, "909": 15, "910": 15, "911": 15, "912": 15, "913": 15, "914": 15,
+    "915": 15.25, "916": 15.25, "917": 15.25, "918": 15.25, "919": 15.25, "920": 15.25, "921": 15.25, "922": 15.25, "923": 15.25, "924": 15.25, "925": 15.25, "926": 15.25, "927": 15.25, "928": 15.25, "929": 15.25,
+    "930": 15.5, "931": 15.5, "932": 15.5, "933": 15.5, "934": 15.5, "935": 15.5, "936": 15.5, "937": 15.5, "938": 15.5, "939": 15.5, "940": 15.5, "941": 15.5, "942": 15.5, "943": 15.5, "944": 15.5,
+    "945": 15.75, "946": 15.75, "947": 15.75, "948": 15.75, "949": 15.75, "950": 15.75, "951": 15.75, "952": 15.75, "953": 15.75, "954": 15.75, "955": 15.75, "956": 15.75, "957": 15.75, "958": 15.75, "959": 15.75,
+    // Maximum value (960 minutes = 16 hours)
+    "960": 16
 }
 
 const hariLibur = {
@@ -215,35 +239,28 @@ const calculateLemburHariLibur = () => {
     if (event.key === 'Enter') {
       const newInputFields = [...inputFields];
       const inputValue = event.target.value;
-      
-      // Split the input into hours and minutes
-      const [hours, minutes] = inputValue.split('.').map(Number);
-      
-      // Calculate total minutes
-      let totalMinutes = 0;
-      if (!isNaN(hours)) {
-        totalMinutes += hours * 60;
-      }
-      if (!isNaN(minutes)) {
-        // If minutes part is less than 60, add it directly
-        if (minutes < 60) {
-          totalMinutes += minutes;
-        } else {
-          // If minutes part is 60 or more, convert it to hours and minutes
-          const additionalHours = Math.floor(minutes / 60);
-          const remainingMinutes = minutes % 60;
-          totalMinutes += (additionalHours * 60) + remainingMinutes;
-        }
-      }
 
-      // Check if total hours is within limit (24 hours = 1440 minutes)
-      if (totalMinutes <= 1440) {
-        newInputFields[index].value = totalMinutes;
+      let totalMinutes = 0;
+      if (inputValue.includes('.')) {
+        const [hoursStr, decimalStr] = inputValue.split('.');
+        const hours = parseInt(hoursStr, 10);
+        let minutes = 0;
+        if (decimalStr.length === 1) {
+          // Fractional hour
+          minutes = Math.round(parseFloat('0.' + decimalStr) * 60);
+        } else if (decimalStr.length === 2) {
+          // Direct minutes
+          minutes = parseInt(decimalStr, 10);
+        }
+        totalMinutes = (isNaN(hours) ? 0 : hours) * 60 + (isNaN(minutes) ? 0 : minutes);
       } else {
-        event.target.value = 1440;
-        newInputFields[index].value = 1440;
+        // No decimal, treat as minutes
+        totalMinutes = parseInt(inputValue, 10);
+        if (isNaN(totalMinutes)) totalMinutes = 0;
       }
-      
+      // Clamp to 0-960
+      totalMinutes = Math.max(0, Math.min(960, totalMinutes));
+      newInputFields[index].value = totalMinutes;
       setInputFields(newInputFields);
       calculateHariLemburKerja();
       handleCountLemburKerja();
@@ -317,7 +334,7 @@ const calculateLemburHariLibur = () => {
     let temp
     console.log(hariLemburKerja)
     console.log(hariLemburLibur)
-    temp = hariLemburKerja + hariLemburLibur
+    temp = parseInt(hariLemburKerja) + parseInt(hariLemburLibur)
     console.log(temp)
     setHariLemburTotal(temp)
   }, [hariLemburKerja, hariLemburLibur])
@@ -331,11 +348,41 @@ const calculateLemburHariLibur = () => {
   
 
   useEffect(() => {
-    document.querySelector(".harilembur").style.setProperty("--num2", hariLemburTotal);
-  }, [hariLemburTotal])
-  
-  
-  
+    // Convert total minutes to hours.minutes format
+    const hours = Math.floor(hariLemburTotal / 60);
+    const minutes = hariLemburTotal % 60;
+    const formattedTime = `${hours}.${minutes.toString().padStart(2, '0')}`;
+    const harilemburElement = harilemburRef.current;
+    if (harilemburElement) {
+      harilemburElement.style.setProperty("--num2", formattedTime);
+      harilemburElement.offsetHeight;
+    }
+
+    // Animate the number in JS
+    let start = prevJamLembur.current;
+    let end = hariLemburTotal;
+    let startTime = null;
+    const duration = 600; // ms
+
+    function animateNumber(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const current = Math.round(start + (end - start) * progress);
+      const h = Math.floor(current / 60);
+      let m = current % 60;
+      // Clamp minutes to 0-59 and always show two digits
+      m = Math.max(0, Math.min(59, m));
+      const formatted = `${h}.${m.toString().padStart(2, '0')}`;
+      console.log('Animated:', {current, h, m, formatted});
+      setFormattedJamLembur(formatted);
+      if (progress < 1) {
+        requestAnimationFrame(animateNumber);
+      } else {
+        prevJamLembur.current = end;
+      }
+    }
+    requestAnimationFrame(animateNumber);
+  }, [hariLemburTotal]);
 
   const handleInputChangeLibur = (index, event) => {
     const newInputFieldsLibur = [...inputFieldsLibur];
@@ -438,6 +485,11 @@ const calculateLemburHariLibur = () => {
     
   }, [theme])
   
+  const handleCalculate = () => {
+    calculateHariLemburKerja();
+    handleCountLemburKerja();
+  };
+
   return (
     <main>
       <div className="container mw-425 pb-5">
@@ -493,16 +545,16 @@ const calculateLemburHariLibur = () => {
                   </div>
                 </div>
                 <div className='col-6'>
-                  <h6>Total Menit Lembur :</h6>
+                  <h6>Total Jam Lembur :</h6>
                   <div class="d-flex">
-                    <div class="harilembur me-1"></div>
-                    Menit
+                      <div class="harilembur me-1" ref={harilemburRef}>{formattedJamLembur}</div>
+                    Jam
                   </div>
                 </div>
               </div>
               <div className="d-flex">
                 <div className='btn btn-danger me-2' onClick={loadData}>Load Data</div>
-                <div className='btn btn-success'onClick={saveData}>Save Data</div>
+                <div className='btn btn-success' onClick={saveData}>Save Data</div>
               </div>
               <p className="donasi mt-2" onClick={handleQris}>Donasi ke Developer :D</p>
               {viewSaveAlert && <div class="alert alert-success animate" role="alert">

@@ -158,7 +158,7 @@ ion-icon{
   counter-set: num2 var(--num2);
 }
 .harilembur::after {
-  content: counter(num2);
+  content: '';
 }
 .lemburwrapper{
   max-width: 34px;
